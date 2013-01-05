@@ -6,7 +6,7 @@ iOS alerts with a customizable appearance.
 
 Overview
 --------
-Sick of the appearance of iOS' default UIAlertViews? Or have you ever spent so much time **hand-crafting** your own unique UI, only to find that the *pesky* blue UIAlertView ruins it? ILAlertView is an attempt to alleviate that longing for more control over how alerts in your app look.
+Sick of the appearance of iOS' default UIAlertViews? Or have you ever spent so much time **hand-crafting** your own unique UI, only to find that the *pesky* blue UIAlertView ruins it? ILAlertView, a subclass of UIView, is an attempt to alleviate that longing for more control over how alerts in your app look.
 
 ILAlertView is meant to be an app-wide replacement of alert views, and thus the customization takes place at compile-time. Simply edit the relevant constants in `ILAlertViewConfig.h` and every instance of `ILAlertView` in your app will have the same streamlined appearance.
 
