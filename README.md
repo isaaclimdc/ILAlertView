@@ -28,6 +28,8 @@ As of v1.0, ILAlertView only supports either a single close button that simply c
 
 How to use
 ----------
+A demo project `ILAlertViewDemo` is included to show how `ILAlertView` can be integrated into a project.
+
 #### Preparation
 1. Copy the following 3 files into your Xcode project. Be sure to check "Copy items into destination's group folder".
     - `ILAlertViewConfig.h`: This is the file with your customization. More on the config constants [below](#Customization).

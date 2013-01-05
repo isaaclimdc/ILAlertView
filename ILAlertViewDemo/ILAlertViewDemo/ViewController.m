@@ -44,7 +44,7 @@
 }
 
 - (void)toggleBackground {
-    UIColor *whiteBkg = [UIColor whiteColor];
+    UIColor *blackBkg = [UIColor blackColor];
     UIColor *grayBkg = [UIColor scrollViewTexturedBackgroundColor];
 
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
@@ -53,10 +53,10 @@
 
     } completion:^(BOOL finished) {
 
-        if (self.view.backgroundColor == whiteBkg)
+        if (self.view.backgroundColor == blackBkg)
             self.view.backgroundColor = grayBkg;
         else
-            self.view.backgroundColor = whiteBkg;
+            self.view.backgroundColor = blackBkg;
 
         [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
 
