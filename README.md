@@ -18,13 +18,13 @@ See ILAlertView **in action** in this [short demo on YouTube](http://youtu.be/Ak
 As of v1.0, ILAlertView only supports either a single close button that simply closes the alert, or 2 buttons side by side. The second button can be configured by conforming to `ILAlertViewDelegate` to perform an action. More buttons can be added in the future if this is desired.
 
 **An alert with a short message:**  
-![Short message](http://isaacl.net/images/libraries/ILAlertView1.png)
+![Short message](http://isaacl.net/images/libraries/ILAlertView11.png)
 
 **An alert with a long message:**  
-![Long message](http://isaacl.net/images/libraries/ILAlertView2.png)
+![Long message](http://isaacl.net/images/libraries/ILAlertView21.png)
 
 **An alert with 2 buttons:**  
-![2 buttons](http://isaacl.net/images/libraries/ILAlertView3.png)
+![2 buttons](http://isaacl.net/images/libraries/ILAlertView31.png)
 
 How to use
 ----------
