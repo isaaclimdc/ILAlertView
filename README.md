@@ -135,8 +135,6 @@ Credits
 -------
 - The "Debut light" pattern from [Subtle Patterns](http://subtlepatterns.com) by [Luke McDonald](http://lukemcdonald.com/).
 
-
-
 Version History
 ---------------
 **1.0**  
