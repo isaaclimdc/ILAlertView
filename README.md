@@ -6,16 +6,15 @@ iOS alerts with a customizable appearance.
 
 Overview
 --------
-Sick of the appearance of iOS' default UIAlertViews? Or have you ever spent so much time **hand-crafting** your own unique UI, only to find that the *pesky* blue UIAlertView ruins it? ILAlertView, a subclass of UIView, is an attempt to alleviate that longing for more control over how alerts in your app look.
+Sick of the appearance of iOS' default `UIAlertView`? Or have you ever spent so much time **hand-crafting** your own unique UI, only to find that the *pesky* blue `UIAlertView` ruins it? `ILAlertView`, a subclass of `UIView`, is an attempt to alleviate that longing for more control over how alerts in your app look.
 
-ILAlertView is meant to be an app-wide replacement of alert views, and thus the customization takes place at compile-time. Simply edit the relevant constants in `ILAlertViewConfig.h` and every instance of `ILAlertView` in your app will have the same streamlined appearance.
+`ILAlertView` is meant to be an app-wide replacement of alert views, and thus the customization takes place at compile-time. Simply edit the relevant constants in `ILAlertViewConfig.h` and every instance of `ILAlertView` in your app will have the same streamlined appearance.
 
 Animations are subtle but smooth and they look pretty neat! Just call a single method that configures and displays the alert, and the implementation takes care of the rest.
 
-See ILAlertView **in action** in this [short demo on YouTube](http://youtu.be/AkimUM52ULo).
+See `ILAlertView` **in action** in this [short demo on YouTube](http://youtu.be/AkimUM52ULo).
 
-
-As of v1.0, ILAlertView only supports either a single close button that simply closes the alert, or 2 buttons side by side. The second button can be configured by conforming to `ILAlertViewDelegate` to perform an action. More buttons can be added in the future if this is desired.
+As of v1.0, `ILAlertView` only supports either a single close button that simply closes the alert, or 2 buttons side by side. The second button can be configured by conforming to `ILAlertViewDelegate` to perform an action. More buttons can be added in the future if this is desired.
 
 **An alert with a short message:**  
 ![Short message](http://isaacl.net/images/libraries/ILAlertView/1.png)
@@ -49,7 +48,7 @@ To initialize and display a simple alert view with just a close button, use the 
 
 … and that's it!
 
-Note: `showWithTitle:message:closeButtonTitle:secondButtonTitle:` returns the instance of `ILAlertView` that it displays, but the return value can be ignored if all that is needed is a simple alert.
+Note: `-showWithTitle:message:closeButtonTitle:secondButtonTitle:` returns the instance of `ILAlertView` that it displays, but the return value can be ignored if all that is needed is a simple alert.
 
 #### Display an alert with 2 buttons
 To initialize and display an alert view with 2 buttons, the calling view controller has to conform to `ILAlertViewDelegate` in its interface. For example, if I have a `ViewController.h`:
