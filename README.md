@@ -123,12 +123,12 @@ Requirements
 ------------
 - ARC
 - iOS 5.0 or later
-- The QuartzCore framework
+- The `QuartzCore` framework
 
 Contact
 -------
-Isaac Lim  
-[@isaaclimdc](http://twitter.com/isaaclimdc)
+Isaac Lim   
+[isaacl.net](http://isaacl.net)
 
 Credits
 -------
