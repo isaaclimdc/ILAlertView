@@ -2,7 +2,7 @@ ILAlertView
 ===============
 iOS alerts with a customizable appearance.
 
-### Version 1.0
+### Version 1.0.1
 
 Overview
 --------
@@ -36,7 +36,7 @@ A demo project `ILAlertViewDemo` is included to show how `ILAlertView` can be in
     - `ILAlertView.m`
 2. To use the default provided background pattern image, also copy `alertBkg.png` and `alertBkg@2x.png` into your project. To use your own image, either rename your images to `alertBkg`, or edit the `kILAlertViewBkgPatternImage` constant in `ILAlertViewConfig.h`.
 3. Add the QuartzCore framework to your project by clicking on your project's name at the top of the sidebar in Xcode, then going into "Build Phases". In this tab, expand "Link Binaries With Libraries" and add `QuartzCore.framework`.
-4. Add the line `#include "ILAlertView.h"` to the `YourAppName-Prefix.pch` file in the "Supporting Files" group. This way, `ILAlertView` will be available to every file in your project without needing to keep adding a `#include`. While you are in this file, also add the line `#include <QuartzCore/QuartzCore.h>`.
+4. Add the line `#include "ILAlertView.h"` to the `YourAppName-Prefix.pch` file in the "Supporting Files" group. This way, `ILAlertView` will be available to every file in your project without needing to keep adding a `#include`.
 
 #### Display a simple alert
 To initialize and display a simple alert view with just a close button, use the following code:
@@ -136,6 +136,9 @@ Credits
 
 Version History
 ---------------
+**1.0.1**  
+- Imported `QuartzCore` into `ILAlertView.h` so the user doesn't have to do that in the prefix header.
+
 **1.0**  
 - First publish to Github
 

@@ -1,6 +1,6 @@
 //
 // ILAlertView.h
-// Version 1.0
+// Version 1.0.1
 // Created by Isaac Lim (isaacl.net) on 1/1/13.
 //
 
@@ -28,6 +28,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ILAlertViewConfig.h"
+#import <QuartzCore/QuartzCore.h>
 
 @class ILAlertView;
 
