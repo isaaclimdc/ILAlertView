@@ -1,5 +1,5 @@
 //
-// ILAlertView.h
+// ILAlertView
 // Version 1.0.1
 // Created by Isaac Lim (isaacl.net) on 1/1/13.
 //
