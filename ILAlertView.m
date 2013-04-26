@@ -60,6 +60,7 @@
         self.layer.shadowColor = [UIColor blackColor].CGColor;
         self.layer.shadowOffset = CGSizeMake(0, 3);
         self.layer.shadowOpacity = 0.2;
+        self.layer.cornerRadius = 5.0f;
 
         /* titleLabel */
         CGSize actualTitleSize = [self.title sizeWithFont:kILAlertViewTitleFont constrainedToSize:CGSizeMake(frame.size.width, kMaxTitleHeight)];

@@ -2,7 +2,7 @@ ILAlertView
 ===============
 iOS alerts with a customizable appearance.
 
-### Version 1.0.1
+### Version 1.1
 
 Overview
 --------
@@ -136,6 +136,11 @@ Credits
 
 Version History
 ---------------
+**1.1**  
+- Slightly rounded edges  
+- Alert message text center aligned  
+- Bug fixes
+
 **1.0.1**  
 - Imported `QuartzCore` into `ILAlertView.h` so the user doesn't have to do that in the prefix header.
 
