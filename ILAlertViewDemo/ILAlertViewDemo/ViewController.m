@@ -22,7 +22,8 @@
     [ILAlertView showWithTitle:@"Incorrect Credentials"
                        message:@"Please type a matching username and password."
               closeButtonTitle:@"OK"
-             secondButtonTitle:nil];
+             secondButtonTitle:nil
+     tappedButtonAtIndex:nil];
 }
 
 - (IBAction)alert2:(id)sender {
@@ -31,16 +32,19 @@
     [ILAlertView showWithTitle:@"Here is a long message"
                        message:longMessage
               closeButtonTitle:@"Close"
-             secondButtonTitle:nil];
+             secondButtonTitle:nil
+           tappedButtonAtIndex:nil];
 }
 
 - (IBAction)alert3:(id)sender {
-    ILAlertView *alert = [ILAlertView showWithTitle:@"Change background?"
-                                            message:@"Are you sure you want to change the background color of this window?"
-                                   closeButtonTitle:@"No"
-                                  secondButtonTitle:@"Yes"];
-    alert.tag = 100;
-    alert.delegate = self;
+    [ILAlertView showWithTitle:@"Change background?"
+                       message:@"Are you sure you want to change the background color of this window?"
+              closeButtonTitle:@"No"
+             secondButtonTitle:@"Yes"
+           tappedButtonAtIndex:^(NSInteger buttonIndex) {
+               if (buttonIndex == 1)
+                   [self toggleBackground];
+           }];
 }
 
 - (void)toggleBackground {
@@ -65,21 +69,6 @@
         } completion:nil];
         
     }];
-}
-
-#pragma mark - ILAlertViewDelegate Methods
-
-- (void)alertView:(ILAlertView *)alertView tappedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        /* Do nothing */
-    }
-    else if (buttonIndex == 1) {
-        /* Take action */
-        if (alertView.tag == 100) {
-            [self toggleBackground];
-        }
-    }
 }
 
 @end
