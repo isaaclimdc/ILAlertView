@@ -30,27 +30,11 @@
 #import "ILAlertViewConfig.h"
 #import <QuartzCore/QuartzCore.h>
 
-@class ILAlertView;
-
-@protocol ILAlertViewDelegate <NSObject>
-
-/**
- * The delegate should implement this method in order for the buttons to cause side effects. This is akin to UIAlertViewDelegate's parallel method.
- * @param alertView The alertView that sent this method.
- * @param buttonIndex The index of the button tapped. The default close button (with closeTitle as its text) has index 0, and the second button (with secondTitle as its text) has index 1.
- *
- * @return none
- */
-- (void)alertView:(ILAlertView *)alertView tappedButtonAtIndex:(NSInteger)buttonIndex;
-
-@end
-
 @interface ILAlertView : UIView {
     NSString *_title;
     NSString *_message;
 }
 
-@property (strong, nonatomic) id <ILAlertViewDelegate> delegate;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *message;
 
@@ -66,6 +50,7 @@
 + (ILAlertView *)showWithTitle:(NSString *)title
                        message:(NSString *)message
               closeButtonTitle:(NSString *)closeTitle
-             secondButtonTitle:(NSString *)secondTitle;
+             secondButtonTitle:(NSString *)secondTitle
+           tappedButtonAtIndex:(void(^)(NSInteger buttonIndex))block;
 
 @end
