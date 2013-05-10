@@ -23,7 +23,7 @@
                        message:@"Please type a matching username and password."
               closeButtonTitle:@"OK"
              secondButtonTitle:nil
-     tappedButtonAtIndex:nil];
+           tappedButtonAtIndex:nil];
 }
 
 - (IBAction)alert2:(id)sender {

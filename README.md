@@ -58,7 +58,7 @@ To initialize and display an alert view with 2 buttons, use the following code:
                                             message:@"Are you sure you want to change the background color of this window?"
                                    closeButtonTitle:@"No"
                                   secondButtonTitle:@"Yes"
-                                  tappedButtonAtIndex:^(NSInteger buttonIndex) {
+                                tappedButtonAtIndex:^(NSInteger buttonIndex) {
                                     if (buttonIndex == 1)
                                         [self toggleBackground];
                                   }];
@@ -113,13 +113,15 @@ Isaac Lim
 
 Credits
 -------
-- The "Debut light" pattern from [Subtle Patterns](http://subtlepatterns.com) by [Luke McDonald](http://lukemcdonald.com/).
+- The "Debut light" pattern from [Subtle Patterns](http://subtlepatterns.com) by [Luke McDonald](http://lukemcdonald.com/).  
+- [darthpelo](https://github.com/darthpelo) for implementing block callbacks in v1.2.
 
 Version History
 ---------------
-**1.2**
-- Remove delegate
-- Added block pattern to manage buttons
+**1.2**  
+- Removed delegate methods  
+- Added block callbacks to manage button taps  
+- Thanks [darthpelo](https://github.com/darthpelo)!
 
 **1.1**  
 - Slightly rounded edges  

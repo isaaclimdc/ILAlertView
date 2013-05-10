@@ -1,6 +1,6 @@
 //
 // ILAlertView
-// Version 1.1
+// Version 1.2
 // Created by Isaac Lim (isaacl.net) on 1/1/13.
 //
 
@@ -156,7 +156,7 @@
                        message:(NSString *)message
               closeButtonTitle:(NSString *)closeTitle
              secondButtonTitle:(NSString *)secondTitle
-        tappedButtonAtIndex:(void(^)(NSInteger buttonIndex))block
+           tappedButtonAtIndex:(void(^)(NSInteger buttonIndex))block
 {
     ILAlertView *alert = [[ILAlertView alloc] initWithTitle:title
                                                     message:message
@@ -171,8 +171,9 @@
 
 - (IBAction)buttonTapped:(id)sender {
     NSUInteger tag = ((UIButton *)sender).tag;
-    if (self.storedBlock)
+    if (self.storedBlock) {
         self.storedBlock(tag);
+    }
     [self dismissAlertAnimated:YES];
 }
 

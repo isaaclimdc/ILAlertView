@@ -1,6 +1,6 @@
 //
 // ILAlertView
-// Version 1.1
+// Version 1.2
 // Created by Isaac Lim (isaacl.net) on 1/1/13.
 //
 
@@ -44,6 +44,7 @@
  * @param message The main body of the alert view's message. This will be scrollable, so can be as long as desired.
  * @param closeTitle The text on the button that closes the alert view with no side effects.
  * @param secondTitle The text on an optional button that can be configured to cause side effects. Set to nil to not show a second button.
+ * @param block The tapped action block. Set to nil for just the default close action.
  *
  * @return The configured instance of the alert view.
  */
