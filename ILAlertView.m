@@ -27,17 +27,18 @@
     UIWindow *window;
     UIView *overlay;
 }
-
+@property (nonatomic, copy) void (^storedBlock)(NSInteger buttonIndex);
 @end
 
 @implementation ILAlertView
 
-@synthesize delegate, title = _title, message = _message;
+@synthesize title = _title, message = _message;
 
 - (ILAlertView *)initWithTitle:(NSString *)title
                        message:(NSString *)message
               closeButtonTitle:(NSString *)closeTitle
              secondButtonTitle:(NSString *)secondTitle
+           tappedButtonAtIndex:(void(^)(NSInteger buttonIndex))block;
 {
     window = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
     
@@ -52,7 +53,8 @@
         /* ivars */
         self.title = title;
         self.message = message;
-
+        self.storedBlock = block;
+        
         /* self customization */
         self.backgroundColor = [UIColor colorWithPatternImage:kILAlertViewBkgPatternImage];
         self.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -154,20 +156,23 @@
                        message:(NSString *)message
               closeButtonTitle:(NSString *)closeTitle
              secondButtonTitle:(NSString *)secondTitle
+        tappedButtonAtIndex:(void(^)(NSInteger buttonIndex))block
 {
     ILAlertView *alert = [[ILAlertView alloc] initWithTitle:title
                                                     message:message
                                            closeButtonTitle:closeTitle
-                                          secondButtonTitle:secondTitle];
+                                          secondButtonTitle:secondTitle
+                                        tappedButtonAtIndex:block];
 
     [alert showAlertAnimated:YES];
-
+    
     return alert;
 }
 
 - (IBAction)buttonTapped:(id)sender {
     NSUInteger tag = ((UIButton *)sender).tag;
-    [self.delegate alertView:self tappedButtonAtIndex:tag];
+    if (self.storedBlock)
+        self.storedBlock(tag);
     [self dismissAlertAnimated:YES];
 }
 

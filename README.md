@@ -2,7 +2,7 @@ ILAlertView
 ===============
 iOS alerts with a customizable appearance.
 
-### Version 1.1
+### Version 1.2
 
 Overview
 --------
@@ -44,43 +44,24 @@ To initialize and display a simple alert view with just a close button, use the 
     [ILAlertView showWithTitle:@"Incorrect Credentials"
                        message:@"Please type a matching username and password."
               closeButtonTitle:@"OK"
-             secondButtonTitle:nil];         
+             secondButtonTitle:nil
+           tappedButtonAtIndex:nil];         
 
 … and that's it!
 
-Note: `-showWithTitle:message:closeButtonTitle:secondButtonTitle:` returns the instance of `ILAlertView` that it displays, but the return value can be ignored if all that is needed is a simple alert.
+Note: `-showWithTitle:message:closeButtonTitle:secondButtonTitle:tappedButtonAtIndex:` returns the instance of `ILAlertView` that it displays, but the return value can be ignored if all that is needed is a simple alert.
 
 #### Display an alert with 2 buttons
-To initialize and display an alert view with 2 buttons, the calling view controller has to conform to `ILAlertViewDelegate` in its interface. For example, if I have a `ViewController.h`:
+To initialize and display an alert view with 2 buttons, use the following code:
 
-    @interface ViewController : UIViewController <ILAlertViewDelegate>
-
-Then to initialize and display the alert view:
-
-    ILAlertView *alert = [ILAlertView showWithTitle:@"Change background?"
+    [ILAlertView showWithTitle:@"Change background?"
                                             message:@"Are you sure you want to change the background color of this window?"
                                    closeButtonTitle:@"No"
-                                  secondButtonTitle:@"Yes"];
-    alert.delegate = self;
-    alert.tag = 100;    /* Optionally tag it for identification */
-
-You can optionally tag the alert view as shown above, in order to differentiate between multiple alert views.
-
-In the same `ViewController.m`, implement the following delegate method:
-        
-    #pragma mark - ILAlertViewDelegate Methods
-        
-    - (void)alertView:(ILAlertView *)alertView tappedButtonAtIndex:(NSInteger)buttonIndex
-    {
-        if (buttonIndex == 0) {
-            /* Do nothing */
-        }
-        else if (buttonIndex == 1) {
-            if (alertView.tag == 100) {
-                /* Do what you want when tapping the second button here */
-            }
-        }
-    }
+                                  secondButtonTitle:@"Yes"
+                                  tappedButtonAtIndex:^(NSInteger buttonIndex) {
+                                    if (buttonIndex == 1)
+                                        [self toggleBackground];
+                                  }];
 
 Customization
 -------------
@@ -136,6 +117,10 @@ Credits
 
 Version History
 ---------------
+**1.2**
+- Remove delegate
+- Added block pattern to manage buttons
+
 **1.1**  
 - Slightly rounded edges  
 - Alert message text center aligned  
