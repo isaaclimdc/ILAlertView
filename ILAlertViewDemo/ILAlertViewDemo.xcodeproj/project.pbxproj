@@ -330,6 +330,7 @@
 				6A7F072A1697F2FB00E1E943 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

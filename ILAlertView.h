@@ -1,6 +1,6 @@
 //
 // ILAlertView
-// Version 1.2
+// Version 1.3
 // Created by Isaac Lim (isaacl.net) on 1/1/13.
 //
 

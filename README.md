@@ -2,7 +2,7 @@ ILAlertView
 ===============
 iOS alerts with a customizable appearance.
 
-### Version 1.2
+### Version 1.3
 
 Overview
 --------
@@ -118,10 +118,12 @@ Credits
 
 Version History
 ---------------
+**1.3**  
+- Added landscape support
+
 **1.2**  
 - Removed delegate methods  
-- Added block callbacks to manage button taps  
-- Thanks [darthpelo](https://github.com/darthpelo)!
+- Added block callbacks to manage button taps ([darthpelo](https://github.com/darthpelo))
 
 **1.1**  
 - Slightly rounded edges  
