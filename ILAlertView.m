@@ -68,6 +68,7 @@
         self.layer.shadowOffset = CGSizeMake(0, 3);
         self.layer.shadowOpacity = 0.2;
         self.layer.cornerRadius = 5.0f;
+        self.layer.masksToBounds = YES;
         self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
 
         /* titleLabel */
