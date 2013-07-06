@@ -66,7 +66,7 @@
         bkgImg.layer.shadowColor = [UIColor blackColor].CGColor;
         bkgImg.layer.shadowOffset = CGSizeMake(0, 0);
         bkgImg.layer.shadowRadius = 5.0f;
-        bkgImg.layer.shadowOpacity = 0.4;
+        bkgImg.layer.shadowOpacity = 0.2;
         bkgImg.layer.shouldRasterize = YES;
 
         self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
