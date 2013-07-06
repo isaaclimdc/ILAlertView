@@ -2,7 +2,7 @@ ILAlertView
 ===============
 iOS alerts with a customizable appearance.
 
-### Version 1.3
+### Version 1.4
 
 Overview
 --------
@@ -118,6 +118,10 @@ Credits
 
 Version History
 ---------------
+**1.4**  
+- Reorganized to better adhere to Objective-C standards  
+- Changed background color to an image, added a shadow.
+
 **1.3**  
 - Added landscape support
 

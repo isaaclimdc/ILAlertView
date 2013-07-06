@@ -1,8 +1,12 @@
 //
 // ILAlertView
-// Version 1.3
+// Version 1.4
 // Created by Isaac Lim (isaacl.net) on 1/1/13.
 //
+
+#import "ILAlertView.h"
+#import "ILAlertViewConfig.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define kMaxWidth 280.0f
 #define kMaxHeight 300.0f
@@ -13,7 +17,7 @@
 #define kLabelAutosizeExtra 10.0f
 #define kTextViewAutosizeExtra 30.0f
 
-#define kOneButtonMaxWidth kMaxWidth/2
+#define kOneButtonMaxWidth (floorf(kMaxWidth/2))
 #define kButtonHeight 30.0f
 #define kAnimateInDuration 0.4
 #define kAnimateOutDuration 0.3
@@ -21,20 +25,19 @@
 
 #define IS_LANDSCAPE UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)
 
-#import "ILAlertView.h"
-
 @interface ILAlertView() {
+    UIImageView *bkgImg;
     UILabel *titleLabel;
     UITextView *messageView;
+    UIButton *closeButton;
+    UIButton *secondButton;
+    
     UIWindow *window;
     UIView *overlay;
 }
-@property (nonatomic, copy) void (^storedBlock)(NSInteger buttonIndex);
 @end
 
 @implementation ILAlertView
-
-@synthesize title = _title, message = _message;
 
 - (ILAlertView *)initWithTitle:(NSString *)title
                        message:(NSString *)message
@@ -42,17 +45,7 @@
              secondButtonTitle:(NSString *)secondTitle
            tappedButtonAtIndex:(void(^)(NSInteger buttonIndex))block;
 {
-    if (!window) {
-        UIView *winParent = [[UIApplication sharedApplication].windows objectAtIndex:0];
-        window = [winParent.subviews objectAtIndex:0];
-    }
-
-    CGRect frame = CGRectMake((window.frame.size.width-kMaxWidth)/2,
-                              (window.frame.size.height-kMaxHeight)/2,
-                              kMaxWidth,
-                              kMaxHeight);
-
-    self = [super initWithFrame:frame];
+    self = [super init];
 
     if (self) {
         /* ivars */
@@ -60,29 +53,28 @@
         self.message = message;
         self.storedBlock = block;
 
+        if (!window) {
+            UIView *winParent = [[UIApplication sharedApplication].windows objectAtIndex:0];
+            window = [winParent.subviews objectAtIndex:0];
+        }
+
         /* self customization */
-        self.backgroundColor = [UIColor colorWithPatternImage:kILAlertViewBkgPatternImage];
-        self.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        self.layer.borderWidth = 1.0f;
-        self.layer.shadowColor = [UIColor blackColor].CGColor;
-        self.layer.shadowOffset = CGSizeMake(0, 3);
-        self.layer.shadowOpacity = 0.2;
-        self.layer.cornerRadius = 5.0f;
-        self.layer.masksToBounds = YES;
+        UIImage *resizableImg = [kILAlertViewBkgPatternImage resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+        bkgImg = [[UIImageView alloc] initWithImage:resizableImg];
+        [self addSubview:bkgImg];
+
+        bkgImg.layer.shadowColor = [UIColor blackColor].CGColor;
+        bkgImg.layer.shadowOffset = CGSizeMake(0, 0);
+        bkgImg.layer.shadowRadius = 5.0f;
+        bkgImg.layer.shadowOpacity = 0.4;
+        bkgImg.layer.shouldRasterize = YES;
+
         self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
 
         /* titleLabel */
-        CGSize actualTitleSize = [self.title sizeWithFont:kILAlertViewTitleFont constrainedToSize:CGSizeMake(frame.size.width, kMaxTitleHeight)];
-        CGFloat titleHeight = MIN(actualTitleSize.height+kLabelAutosizeExtra, kMaxTitleHeight);
-
-        titleLabel = [[UILabel alloc] initWithFrame:
-                      CGRectMake(0,
-                                 kBuffer,
-                                 frame.size.width,
-                                 titleHeight)];
+        titleLabel = [[UILabel alloc] init];
         titleLabel.text = self.title;
-        if (titleHeight > kTitleOneLineHeight)
-            titleLabel.numberOfLines = 2;
+        titleLabel.numberOfLines = 2;
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.font = kILAlertViewTitleFont;
@@ -90,80 +82,104 @@
         [self addSubview:titleLabel];
 
         /* messageView */
-        CGSize actualMessageSize = [self.message sizeWithFont:kILAlertViewMessageFont constrainedToSize:CGSizeMake(frame.size.width, kMaxMessageHeight)];
-        CGFloat messageHeight = MIN(actualMessageSize.height+kTextViewAutosizeExtra, kMaxMessageHeight);
-
-        messageView = [[UITextView alloc] initWithFrame:
-                       CGRectMake(0,
-                                  titleLabel.frame.size.height+kBuffer,
-                                  frame.size.width,
-                                  messageHeight)];
+        messageView = [[UITextView alloc] init];
         messageView.text = self.message;
         messageView.editable = NO;
         messageView.backgroundColor = [UIColor clearColor];
         messageView.textAlignment = NSTextAlignmentCenter;
         messageView.font = kILAlertViewMessageFont;
         messageView.textColor = kILAlertViewMessageColor;
-        if (messageHeight < kMaxMessageHeight)
-            messageView.scrollEnabled = NO;
         [self addSubview:messageView];
 
         /* buttons */
-        CGPoint buttonOrigin = CGPointMake((frame.size.width-kOneButtonMaxWidth)/2,
-                                           messageView.frame.origin.y + messageView.frame.size.height + kBuffer);
-
         if (secondTitle) {
-            UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            [closeButton setTitle:secondTitle forState:UIControlStateNormal];
-            [closeButton setTitleColor:kILAlertViewSecondButtonColorDefault forState:UIControlStateNormal];
-            [closeButton setTitleColor:kILAlertViewButtonColorSelected forState:UIControlStateHighlighted];
-            closeButton.titleLabel.font = kILAlertViewButtonFont;
-            closeButton.tag = 1;
-            [closeButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-
-            [closeButton sizeToFit];
-            closeButton.frame = CGRectMake(0,
-                                           buttonOrigin.y,
-                                           kOneButtonMaxWidth,
-                                           kButtonHeight);
-            [self addSubview:closeButton];
-
-            buttonOrigin.x = kOneButtonMaxWidth;
+            secondButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [secondButton setTitle:secondTitle forState:UIControlStateNormal];
+            [secondButton setTitleColor:kILAlertViewSecondButtonColorDefault forState:UIControlStateNormal];
+            [secondButton setTitleColor:kILAlertViewButtonColorSelected forState:UIControlStateHighlighted];
+            secondButton.titleLabel.font = kILAlertViewButtonFont;
+            secondButton.tag = 1;
+            [secondButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:secondButton];
+        }
+        else {
+            secondButton = nil;
         }
 
-        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [closeButton setTitle:closeTitle forState:UIControlStateNormal];
         [closeButton setTitleColor:kILAlertViewButtonColorDefault forState:UIControlStateNormal];
         [closeButton setTitleColor:kILAlertViewButtonColorSelected forState:UIControlStateHighlighted];
         closeButton.titleLabel.font = kILAlertViewButtonFont;
         closeButton.tag = 0;
         [closeButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-
-        [closeButton sizeToFit];
-        closeButton.frame = CGRectMake(buttonOrigin.x,
-                                       buttonOrigin.y,
-                                       kOneButtonMaxWidth,
-                                       kButtonHeight);
         [self addSubview:closeButton];
-
-        /* Adjust overall frame */
-        CGFloat totalHeight = closeButton.frame.origin.y+kButtonHeight+kBuffer;
-        CGRect rect = self.frame;
-        rect.size.height = totalHeight;
-        self.frame = rect;
-        self.center = [self centerWithOrientation];
     }
 
     return self;
 }
 
-- (CGPoint)centerWithOrientation
+- (void)layoutSubviews
+{
+    self.frame = CGRectMake(floorf((window.frame.size.width-kMaxWidth)/2),
+                            floorf((window.frame.size.height-kMaxHeight)/2),
+                            kMaxWidth,
+                            kMaxHeight);
+    CGSize mainSize = self.frame.size;
+
+    /* Title */
+    CGSize actualTitleSize = [self.title sizeWithFont:kILAlertViewTitleFont
+                                    constrainedToSize:CGSizeMake(mainSize.width, kMaxTitleHeight)];
+    CGFloat titleHeight = MIN(actualTitleSize.height+kLabelAutosizeExtra, kMaxTitleHeight);
+    titleLabel.frame = CGRectMake(0,
+                                  kBuffer,
+                                  mainSize.width,
+                                  titleHeight);
+
+    /* Message */
+    CGSize actualMessageSize = [self.message sizeWithFont:kILAlertViewMessageFont
+                                        constrainedToSize:CGSizeMake(mainSize.width, kMaxMessageHeight)];
+    CGFloat messageHeight = MIN(actualMessageSize.height+kTextViewAutosizeExtra, kMaxMessageHeight);
+    messageView.frame = CGRectMake(0,
+                                   titleLabel.frame.size.height+kBuffer,
+                                   mainSize.width,
+                                   messageHeight);
+    if (messageHeight < kMaxMessageHeight)
+        messageView.scrollEnabled = NO;
+
+    /* Buttons */
+    CGPoint buttonOrigin = CGPointMake(floorf((mainSize.width-kOneButtonMaxWidth)/2),
+                                       messageView.frame.origin.y + messageView.frame.size.height + kBuffer);
+
+    if (secondButton != nil) {
+        secondButton.frame = CGRectMake(0,
+                                        buttonOrigin.y,
+                                        kOneButtonMaxWidth,
+                                        kButtonHeight);
+        buttonOrigin.x = kOneButtonMaxWidth;
+    }
+    
+    closeButton.frame = CGRectMake(buttonOrigin.x,
+                                   buttonOrigin.y,
+                                   kOneButtonMaxWidth,
+                                   kButtonHeight);
+
+    /* Overall frame */
+    CGFloat totalHeight = closeButton.frame.origin.y+kButtonHeight+kBuffer;
+    CGRect rect = self.frame;
+    rect.size.height = totalHeight;
+    self.frame = rect;
+    bkgImg.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    [self centerWithOrientation];
+}
+
+- (void)centerWithOrientation
 {
     if (IS_LANDSCAPE) {
-        return CGPointMake(window.center.y, window.center.x);
+        self.center = CGPointMake(window.center.y, window.center.x);
     }
     else {
-        return window.center;
+        self.center = window.center;
     }
 }
 
@@ -249,8 +265,7 @@
 #pragma mark - Animate Overlay
 
 - (void)showOverlayAnimated:(BOOL)animated {
-    overlay = [[UIView alloc] initWithFrame:self.superview.frame];
-    //    overlay.center = [self centerWithOrientation];
+    overlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, window.frame.size.width, window.frame.size.height)];
     overlay.backgroundColor = [UIColor blackColor];
     overlay.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [window addSubview:overlay];

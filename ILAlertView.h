@@ -1,6 +1,6 @@
 //
 // ILAlertView
-// Version 1.3
+// Version 1.4
 // Created by Isaac Lim (isaacl.net) on 1/1/13.
 //
 
@@ -27,16 +27,12 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import "ILAlertViewConfig.h"
-#import <QuartzCore/QuartzCore.h>
 
-@interface ILAlertView : UIView {
-    NSString *_title;
-    NSString *_message;
-}
+@interface ILAlertView : UIView
 
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *message;
+@property (strong, nonatomic) void (^storedBlock)(NSInteger buttonIndex);
 
 /**
  * Creates a new alert view with appearance according to the user's settings
