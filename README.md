@@ -2,7 +2,7 @@ ILAlertView
 ===============
 iOS alerts with a customizable appearance.
 
-### Version 1.4
+### Version 1.4.1
 
 Overview
 --------
@@ -30,11 +30,12 @@ How to use
 A demo project `ILAlertViewDemo` is included to show how `ILAlertView` can be integrated into a project.
 
 #### Preparation
-1. Copy the following 3 files into your Xcode project. Be sure to check "Copy items into destination's group folder".
-    - `ILAlertViewConfig.h`: This is the file with your customization. More on the config constants [below](#Customization).
+1. Copy the following 4 files into your Xcode project. Be sure to check "Copy items into destination's group folder".
     - `ILAlertView.h`
     - `ILAlertView.m`
-2. To use the default provided background pattern image, also copy `alertBkg.png` and `alertBkg@2x.png` into your project. To use your own image, either rename your images to `alertBkg`, or edit the `kILAlertViewBkgPatternImage` constant in `ILAlertViewConfig.h`.
+    - `alertBkg.png`
+    - `alertBkg@2x.png`
+2. To use your own background image, replace `alertBkg.png` and its `@2x` version with your own, making sure it has resizable edge caps of `10px` all around.
 3. Add the QuartzCore framework to your project by clicking on your project's name at the top of the sidebar in Xcode, then going into "Build Phases". In this tab, expand "Link Binaries With Libraries" and add `QuartzCore.framework`.
 4. Add the line `#include "ILAlertView.h"` to the `YourAppName-Prefix.pch` file in the "Supporting Files" group. This way, `ILAlertView` will be available to every file in your project without needing to keep adding a `#include`.
 
@@ -45,11 +46,11 @@ To initialize and display a simple alert view with just a close button, use the 
                        message:@"Please type a matching username and password."
               closeButtonTitle:@"OK"
              secondButtonTitle:nil
-           tappedButtonAtIndex:nil];         
+            tappedSecondButton:nil];         
 
 … and that's it!
 
-Note: `-showWithTitle:message:closeButtonTitle:secondButtonTitle:tappedButtonAtIndex:` returns the instance of `ILAlertView` that it displays, but the return value can be ignored if all that is needed is a simple alert.
+Note: `-showWithTitle:message:closeButtonTitle:secondButtonTitle:tappedSecondButton:` returns the instance of `ILAlertView` that it displays, but the return value can be ignored if all that is needed is a simple alert.
 
 #### Display an alert with 2 buttons
 To initialize and display an alert view with 2 buttons, use the following code:
@@ -58,14 +59,13 @@ To initialize and display an alert view with 2 buttons, use the following code:
                                             message:@"Are you sure you want to change the background color of this window?"
                                    closeButtonTitle:@"No"
                                   secondButtonTitle:@"Yes"
-                                tappedButtonAtIndex:^(NSInteger buttonIndex) {
-                                    if (buttonIndex == 1)
-                                        [self toggleBackground];
-                                  }];
+                                 tappedSecondButton:^{
+                                    [self toggleBackground];
+                                 }];
 
 Customization
 -------------
-The following are the constants defined in `ILAlertViewConfig.h`. Override these to customize `ILAlertView` for your app.
+The following are the constants defined at the top of `ILAlertView.m`. Override these to customize `ILAlertView` for your app.
 
 #### Background Pattern Image (`UIImage`)
 `kILAlertViewBkgPatternImage`  
@@ -90,14 +90,17 @@ The color of the alert view's title text. Make this the color of your apps' colo
 `kILAlertViewMessageColor`  
 The color of the alert view's message text. This is black by default.
 
-`kILAlertViewButtonColorDefault`
-The color of the alert view's button text when not selected. This is black by default.
+`kILAlertViewCloseButtonColor`
+The color of the alert view's close button text when not selected. This is black by default.
 
-`kILAlertViewButtonColorSelected`
-The color of the alert view's button text when selected. This is set to be the same as `kILAlertViewTitleColor`.
+`kILAlertViewCloseButtonColorSelected`
+The color of the alert view's close button text when selected. This is set to be the same as `kILAlertViewTitleColor`.
 
-`kILAlertViewSecondButtonColorDefault`
+`kILAlertViewSecondButtonColor`
 The color of the alert view's second button text when not selected. This is black by default, and can be changed to differentiate between the two buttons.
+
+`kILAlertViewSecondButtonColorSelected`
+The color of the alert view's second button text when selected. This is set to be the same as `kILAlertViewTitleColor`, and can be changed to differentiate between the two buttons.
 
 
 Requirements
@@ -118,6 +121,10 @@ Credits
 
 Version History
 ---------------
+**1.4.1**  
+- BREAKING: renamed the misnomered function `…tappedButtonIndex:` to `…tappedSecondButton:`. Implementation code will have to be changed.  
+- Refactored code, and removed `ILAlertViewConfig.h`. The configuration constants are now in `ILAlertView.m`.
+
 **1.4**  
 - Reorganized to better adhere to Objective-C standards  
 - Changed background color to an image, added a shadow.

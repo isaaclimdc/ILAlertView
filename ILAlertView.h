@@ -1,6 +1,6 @@
 //
 // ILAlertView
-// Version 1.4
+// Version 1.4.1
 // Created by Isaac Lim (isaacl.net) on 1/1/13.
 //
 
@@ -32,7 +32,7 @@
 
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *message;
-@property (strong, nonatomic) void (^storedBlock)(NSInteger buttonIndex);
+@property (strong, nonatomic) void (^storedBlock)(void);
 
 /**
  * Creates a new alert view with appearance according to the user's settings
@@ -48,6 +48,6 @@
                        message:(NSString *)message
               closeButtonTitle:(NSString *)closeTitle
              secondButtonTitle:(NSString *)secondTitle
-           tappedButtonAtIndex:(void(^)(NSInteger buttonIndex))block;
+            tappedSecondButton:(void(^)(void))block;
 
 @end

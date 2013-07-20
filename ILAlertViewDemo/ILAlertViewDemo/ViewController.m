@@ -23,7 +23,7 @@
                        message:@"Please type a matching username and password."
               closeButtonTitle:@"OK"
              secondButtonTitle:nil
-           tappedButtonAtIndex:nil];
+            tappedSecondButton:nil];
 }
 
 - (IBAction)alert2:(id)sender {
@@ -33,7 +33,7 @@
                        message:longMessage
               closeButtonTitle:@"Close"
              secondButtonTitle:nil
-           tappedButtonAtIndex:nil];
+            tappedSecondButton:nil];
 }
 
 - (IBAction)alert3:(id)sender {
@@ -41,10 +41,9 @@
                        message:@"Are you sure you want to change the background color of this window?"
               closeButtonTitle:@"No"
              secondButtonTitle:@"Yes"
-           tappedButtonAtIndex:^(NSInteger buttonIndex) {
-               if (buttonIndex == 1)
-                   [self toggleBackground];
-           }];
+            tappedSecondButton:^{
+                [self toggleBackground];
+            }];
 }
 
 - (void)toggleBackground {

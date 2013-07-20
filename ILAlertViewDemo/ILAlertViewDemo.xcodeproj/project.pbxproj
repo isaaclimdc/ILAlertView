@@ -47,7 +47,6 @@
 		6A7F072C1697F32700E1E943 /* ILAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ILAlertView.m; path = ../../ILAlertView.m; sourceTree = "<group>"; };
 		6A7F07321697F50C00E1E943 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6A7F07391697F7EA00E1E943 /* alertBkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alertBkg@2x.png"; path = "../../alertBkg@2x.png"; sourceTree = "<group>"; };
-		6A7F073D16982CF700E1E943 /* ILAlertViewConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ILAlertViewConfig.h; path = ../../ILAlertViewConfig.h; sourceTree = "<group>"; };
 		6A7F073E1698336100E1E943 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		6A7F07401698336500E1E943 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		6A8DA1141788A3BE00F0802D /* alertBkg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = alertBkg.png; path = ../../alertBkg.png; sourceTree = "<group>"; };
@@ -104,7 +103,6 @@
 				6A7F07201697F2FB00E1E943 /* MainStoryboard.storyboard */,
 				6A7F07231697F2FB00E1E943 /* ViewController.h */,
 				6A7F07241697F2FB00E1E943 /* ViewController.m */,
-				6A7F073D16982CF700E1E943 /* ILAlertViewConfig.h */,
 				6A7F072B1697F32700E1E943 /* ILAlertView.h */,
 				6A7F072C1697F32700E1E943 /* ILAlertView.m */,
 				6A7F073C16982B9700E1E943 /* Images */,
